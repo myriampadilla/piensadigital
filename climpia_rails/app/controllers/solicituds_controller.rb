@@ -28,10 +28,12 @@ class SolicitudsController < ApplicationController
 
   # POST /solicituds
   def create
-    #solcitud.estado 1: Pendiente recoleccion
     @solicitud = Solicitud.new(solicitud_params)
+    
+    @solicitud.fecha_solicitud =Date.today
+    @solicitud.fecha_cambio_estado = Date.today
     @solicitud.cliente_id = current_usuario.id
-    @solicitud.estado = 1 
+
     if @solicitud.save
       render json: @solicitud, status: :created, location: @solicitud
     else
@@ -41,6 +43,10 @@ class SolicitudsController < ApplicationController
 
   # PATCH/PUT /solicituds/1
   def update
+    if(params[:solicitud][:estado] != @solicitud.estado )
+       @solicitud.fecha_cambio_estado = Date.today;
+    end
+
     if @solicitud.update(solicitud_params)
       render json: @solicitud
     else
@@ -50,14 +56,7 @@ class SolicitudsController < ApplicationController
 
   # DELETE /solicituds/1
   def destroy
-    #@solicitud.destroy
-    #2-Desistida
-    params[:solicitud][:estado] =  2
-    if @solicitud.update(solicitud_params)
-      render json: @solicitud
-    else
-      render json: @solicitud.errors, status: :unprocessable_entity
-    end
+    @solicitud.destroy
   end
 
   private

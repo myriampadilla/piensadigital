@@ -18,14 +18,14 @@ class UsuariosController < ApplicationController
   def create
     @usuario = Usuario.new(usuario_params)
     if @usuario.save
-       # Cliente
-       if (@usuario.id_tipo_usuario == 1)
-          #@cliente = Cliente.find_or_create_by(usuario_id: @usuario.id)
-          @cliente = Cliente.find_or_create_by(
-            id: @usuario.id, usuario_id: @usuario.id,
-            correo_electronico: @usuario.email)
-          render json: @usuario, status: :created, location: @usuario
-       end
+       #=========================  
+       self.crear_cliente
+       self.crear_transportador
+       self.crear_patrocinador
+       self.crear_centro_acopio
+       
+       render json: @usuario, status: :created, location: @usuario
+       #=========================
     else
       render json: @usuario.errors, status: :unprocessable_entity
     end
@@ -45,6 +45,54 @@ class UsuariosController < ApplicationController
   def destroy
       #@usuario.destroy
   end
+
+    def crear_patrocinador
+       # 3.Patrocinador
+       if (@usuario.id_tipo_usuario == 3)
+           @patrocinador  = Patrocinador.find_or_create_by(
+            id: @usuario.id, usuario_id: @usuario.id,
+            correo_electronico: @usuario.email)
+       end
+    end
+
+    def crear_transportador
+       # 2.Transportador
+       # estado transportador
+       # 1.por verificar, 2.disponible, 3.con servicio en curso, 
+       # 4.inactivo, 5.penalizado
+       if (@usuario.id_tipo_usuario == 2)
+
+           Rails.logger = Logger.new(STDOUT)
+           logger.debug "usuario " + @usuario.inspect
+
+           @transportador  = Transportador.find_or_create_by(
+            id: @usuario.id, usuario_id: @usuario.id,
+            correo_electronico: @usuario.email,
+            estado: '1')
+
+           logger.debug "transportador " + @transportador.inspect
+       end   
+    end
+
+    def crear_cliente
+       # 1.Cliente
+       if (@usuario.id_tipo_usuario == 1)
+          #@cliente = Cliente.find_or_create_by(usuario_id: @usuario.id)
+          @cliente = Cliente.find_or_create_by(
+            id: @usuario.id, usuario_id: @usuario.id,
+            correo_electronico: @usuario.email)
+       end
+    end
+
+    def crear_centro_acopio
+       # 4.Centro de acopio 
+       if (@usuario.id_tipo_usuario == 4)
+           @centro_acopio = CentroAcopio.find_or_create_by(
+            id: @usuario.id, usuario_id: @usuario.id,
+            correo_electronico: @usuario.email)
+       end
+    end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -74,5 +122,6 @@ class UsuariosController < ApplicationController
       params.require(:usuario).permit(:username, :email, :password, 
         :password_confirmation, :id_tipo_usuario)
     end
+
 
 end
