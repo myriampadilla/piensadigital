@@ -1,5 +1,6 @@
 class PlanificadorsController < ApplicationController
   before_action :set_planificador, only: [:show, :update, :destroy]
+  before_action :authenticate_usuario
 
   # GET /planificadors
   def index

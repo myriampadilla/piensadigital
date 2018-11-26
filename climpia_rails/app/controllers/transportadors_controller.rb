@@ -1,5 +1,6 @@
 class TransportadorsController < ApplicationController
   before_action :set_transportador, only: [:show, :update, :destroy]
+  before_action :authenticate_usuario
 
   # GET /transportadors
   def index

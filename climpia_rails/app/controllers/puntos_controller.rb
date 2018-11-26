@@ -1,5 +1,6 @@
 class PuntosController < ApplicationController
   before_action :set_punto, only: [:show, :update, :destroy]
+  before_action :authenticate_usuario
 
   # GET /puntos
   def index

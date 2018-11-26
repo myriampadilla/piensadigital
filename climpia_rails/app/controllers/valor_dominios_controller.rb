@@ -1,6 +1,7 @@
 class ValorDominiosController < ApplicationController
   before_action :set_valor_dominio, only: [:show, :update, :destroy]
-
+  before_action :authenticate_usuario, except: [:index, :show]
+  
   # GET /valor_dominios
   def index
     @valor_dominios = ValorDominio.all

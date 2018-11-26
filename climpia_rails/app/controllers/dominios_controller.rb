@@ -1,5 +1,6 @@
 class DominiosController < ApplicationController
   before_action :set_dominio, only: [:show, :update, :destroy]
+  before_action :authenticate_usuario, except: [:index, :show]
 
   # GET /dominios
   def index

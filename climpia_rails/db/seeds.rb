@@ -45,7 +45,9 @@ dominios3 = Dominio.create ([{id_valor:'3', nombre_valor:'Tipo material'}])
 
 valores_dominio_list3 = [
   [ 3,1,'Papel'],
-  [ 3,2,'Plastico']
+  [ 3,2,'Plastico'],
+  [ 3,3,'Medicamentos'],
+  [ 3,4,'Electrodomesticos']
  ]
 
 valores_dominio_list3.each do |dominio_id, id_valor, nombre_valor|
@@ -58,11 +60,60 @@ dominios4 = Dominio.create ([{id_valor:'4', nombre_valor:'Unidad medida'}])
 
 valores_dominio_list4 = [
   [ 4,1,'Lona'],
-  [ 4,2,'kg']
+  [ 4,2,'kg'],
+  [ 4,3,'Unidad']
  ]
 
 valores_dominio_list4.each do |dominio_id, id_valor, nombre_valor|
   ValorDominio.create( dominio_id: dominio_id,
   	               id_valor: id_valor, 
   	               nombre_valor: nombre_valor)
+end
+#=============================
+dominios5 = Dominio.create ([{id_valor:'5', nombre_valor:'Tipo Vehiculo'}])
+
+valores_dominio_list5 = [
+  [ 5,1,'Automovil'],
+  [ 5,2,'Camioneta'],
+  [ 5,3,'Moto'],
+  [ 5,4,'Bicicleta'],
+  [ 5,5,'Camion'],
+  [ 5,6,'Volqueta']
+ ]
+
+valores_dominio_list5.each do |dominio_id, id_valor, nombre_valor|
+  ValorDominio.create( dominio_id: dominio_id,
+                   id_valor: id_valor, 
+                   nombre_valor: nombre_valor)
+end
+#=============================
+dominios6 = Dominio.create ([{id_valor:'6', nombre_valor:'Tipo Identificacion'}])
+
+valores_dominio_list6 = [
+  [ 6,1,'Cédula de Ciudadanía'],
+  [ 6,2,'Cédula de Extranjería'],
+  [ 6,3,'Tarjeta de identidad']
+ ]
+
+valores_dominio_list6.each do |dominio_id, id_valor, nombre_valor|
+  ValorDominio.create( dominio_id: dominio_id,
+                   id_valor: id_valor, 
+                   nombre_valor: nombre_valor)
+end
+
+
+#=============================
+dominios7 = Dominio.create ([{id_valor:'7', nombre_valor:'Estado Trasportador'}])
+
+valores_dominio_list7 = [
+  [ 7,1,'Por verificar'],
+  [ 7,2,'Activo'],
+  [ 7,3,'Inactivo'],
+  [ 7,4,'Penalizado']
+ ]
+
+valores_dominio_list7.each do |dominio_id, id_valor, nombre_valor|
+  ValorDominio.create( dominio_id: dominio_id,
+                   id_valor: id_valor, 
+                   nombre_valor: nombre_valor)
 end

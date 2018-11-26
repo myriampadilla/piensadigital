@@ -6,17 +6,26 @@ class SolicitudsController < ApplicationController
 
   # GET /solicituds
   def index
-    #Rails.logger = Logger.new(STDOUT)
-    #logger.debug "current_usuario " + current_usuario.inspect
-
+    Rails.logger = Logger.new(STDOUT)
+    logger.debug "current_usuario " + current_usuario.inspect
+    
     params = ActionController::Parameters.new
     ({cliente_id: 0,
-     id_tipo_usuario: 0
+     id_tipo_usuario: 0,
+     estado:""
      })
-    
-    params[:cliente_id] = current_usuario.id    
+ 
     params[:id_tipo_usuario] = current_usuario.id_tipo_usuario 
 
+    if (current_usuario.id_tipo_usuario == 1)
+        params[:cliente_id] = current_usuario.id    
+    else
+       if (current_usuario.id_tipo_usuario == 2)
+           params[:estado] = 1
+       end
+    end
+    logger.debug "GET /solicituds params " + params.inspect
+    
     @solicituds = Solicitud.search(params)
     render json: @solicituds    
   end

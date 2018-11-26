@@ -1,5 +1,6 @@
 class PatrocinadorsController < ApplicationController
   before_action :set_patrocinador, only: [:show, :update, :destroy]
+  before_action :authenticate_usuario
 
   # GET /patrocinadors
   def index

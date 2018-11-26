@@ -1,5 +1,6 @@
 class ComprasController < ApplicationController
   before_action :set_compra, only: [:show, :update, :destroy]
+  before_action :authenticate_usuario
 
   # GET /compras
   def index

@@ -28,11 +28,23 @@ class ClientesController < ApplicationController
 
   # PATCH/PUT /clientes/1
   def update
+    Rails.logger = Logger.new(STDOUT)
+    #logger.debug "current_usuario " + current_usuario.inspect
+
+    if (@cliente != nil)
+        if (@cliente.usuario_id == current_usuario.id or
+           current_usuario.id_tipo_usuario == 0)
+        else  
+           @cliente = nil
+        end
+    end
+
     if @cliente.update(cliente_params)
       render json: @cliente
     else
       render json: @cliente.errors, status: :unprocessable_entity
     end
+
   end
 
   # DELETE /clientes/1
@@ -44,23 +56,14 @@ class ClientesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
 
     def set_cliente
-      Rails.logger = Logger.new(STDOUT)
-      #logger.debug "current_usuario " + current_usuario.inspect
-      
       @cliente = Cliente.find(params[:id])
-      if (@cliente != nil)
-          if (@cliente.usuario_id == current_usuario.id or
-              current_usuario.id_tipo_usuario == 0)
-          else  
-              @cliente = nil
-          end
-      end
-      
     end
 
-    
     # Only allow a trusted parameter "white list" through.
     def cliente_params
-      params.require(:cliente).permit(:tipo_identificacion, :numero_identificacion, :primer_nombre, :segundo_nombre, :primer_apellido, :segundo_apellido, :correo_electronico, :numero_telefonico, :direccion, :puntos_por_redimir, :puntos_redimidos, :usuario_id)
+      params.require(:cliente).permit(:tipo_identificacion, :numero_identificacion, 
+        :primer_nombre, :segundo_nombre, :primer_apellido, :segundo_apellido, 
+        :correo_electronico, :numero_telefonico, :direccion, :puntos_por_redimir, 
+        :puntos_redimidos, :usuario_id)
     end
 end

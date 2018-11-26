@@ -58,8 +58,7 @@ class UsuariosController < ApplicationController
     def crear_transportador
        # 2.Transportador
        # estado transportador
-       # 1.por verificar, 2.disponible, 3.con servicio en curso, 
-       # 4.inactivo, 5.penalizado
+       #    1.por verificar, 2.activo, 3.inactivo, 4.penalizado
        if (@usuario.id_tipo_usuario == 2)
 
            Rails.logger = Logger.new(STDOUT)

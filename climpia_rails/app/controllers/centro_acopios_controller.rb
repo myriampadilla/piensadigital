@@ -1,6 +1,7 @@
 class CentroAcopiosController < ApplicationController
   before_action :set_centro_acopio, only: [:show, :update, :destroy]
-
+  before_action :authenticate_usuario
+  
   # GET /centro_acopios
   def index
     @centro_acopios = CentroAcopio.all
